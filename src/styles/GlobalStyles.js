@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
   * {
@@ -8,8 +8,18 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
+    height: 100vh;
     color: #eee;
     background-color: #333;
     font: 400 16px 'Arial', sans-serif;
   }
+`
+
+export const Container = styled.div`
+  padding: 24px;
+
+  /* > header,
+  > div {
+    border: 1px solid #eee;
+  } */
 `

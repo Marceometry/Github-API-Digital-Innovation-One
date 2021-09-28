@@ -33,15 +33,15 @@ function GithubProvider({ children }) {
   async function getUser(username) {
     setGithubData((prevState) => ({
       ...prevState,
-      loading: !prevState.loading,
+      loading: true,
     }))
 
     const { data } = await api.get(`users/${username}`)
 
     setGithubData((prevState) => ({
       ...prevState,
-      loading: !prevState.loading,
       hasUser: true,
+      loading: false,
       user: {
         id: data.id,
         avatar: data.avatar_url,
@@ -82,7 +82,7 @@ function GithubProvider({ children }) {
   }
 
   const contextValue = {
-    githubData,
+    data: githubData,
     getUser: useCallback((username) => getUser(username), []),
     getUserRepos: useCallback((username) => getUserRepos(username), []),
     getUserStarred: useCallback((username) => getUserStarred(username), []),
