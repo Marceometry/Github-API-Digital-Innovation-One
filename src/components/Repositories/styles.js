@@ -7,6 +7,11 @@ export const Wrapper = styled.div`
   padding-bottom: 32px;
 `
 
+export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+`
+
 export const Tabs = styled.div`
   display: flex;
   gap: 16px;

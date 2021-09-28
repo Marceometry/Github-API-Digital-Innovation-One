@@ -4,7 +4,7 @@ import { useGithub } from '../../hooks/github'
 import * as S from './styles'
 
 export function Header() {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('Marceometry')
   const { getAllInfo } = useGithub()
 
   function handleSearch(value) {
@@ -21,6 +21,7 @@ export function Header() {
   return (
     <S.Header>
       <S.Input
+        autoFocus
         type='text'
         value={value}
         onKeyPress={handlePressEnter}
