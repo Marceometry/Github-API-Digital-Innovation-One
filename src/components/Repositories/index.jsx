@@ -1,19 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGithub } from '../../hooks/github'
 import { Card } from '../'
 import * as S from './styles'
 
 export function Repositories() {
+  const [currentTab, setCurrentTab] = useState('repositories')
+  const [repositories, setRepositories] = useState([])
   const { data } = useGithub()
+
+  useEffect(() => {
+    setRepositories(data[currentTab])
+  }, [data])
+
+  function changeTab(tab) {
+    setCurrentTab(tab)
+    setRepositories(data[tab])
+  }
 
   return (
     <S.Wrapper>
       <S.Tabs>
-        <S.Button active>Repositórios</S.Button>
-        <S.Button>Com estrela</S.Button>
+        <S.Button
+          active={currentTab === 'repositories'}
+          onClick={() => changeTab('repositories')}
+        >
+          Repositórios
+        </S.Button>
+        <S.Button
+          active={currentTab === 'starred'}
+          onClick={() => changeTab('starred')}
+        >
+          Com estrela
+        </S.Button>
       </S.Tabs>
       <S.Grid>
-        {data.repositories.map((item) => (
+        {repositories.map((item) => (
           <Card
             key={item.id}
             name={item.name}

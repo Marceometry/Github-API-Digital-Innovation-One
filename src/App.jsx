@@ -4,23 +4,22 @@ import { useGithub } from './hooks/github'
 import { Container } from './styles/GlobalStyles'
 
 function App() {
-  const { data, getUser, getUserRepos } = useGithub()
+  const { data, getUser, getUserRepos, getUserStarred } = useGithub()
 
   useEffect(() => {
     getUser('marceometry')
     getUserRepos('marceometry')
+    getUserStarred('marceometry')
   }, [])
 
   return (
     <Container>
       <Header />
-      {data.loading ? (
+      {data.isLoadingUser ? <h1>Carregando...</h1> : <Profile />}
+      {data.isLoadingRepos || data.isLoadingStarred ? (
         <h1>Carregando...</h1>
       ) : (
-        <>
-          <Profile />
-          <Repositories />
-        </>
+        <Repositories />
       )}
     </Container>
   )

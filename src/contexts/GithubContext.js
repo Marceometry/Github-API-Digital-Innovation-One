@@ -11,7 +11,9 @@ export const GithubContext = createContext({
 function GithubProvider({ children }) {
   const [githubData, setGithubData] = useState({
     hasUser: false,
-    loading: false,
+    isLoadingUser: false,
+    isLoadingRepos: false,
+    isLoadingStarred: false,
     user: {
       id: undefined,
       avatar: undefined,
@@ -33,7 +35,7 @@ function GithubProvider({ children }) {
   async function getUser(username) {
     setGithubData((prevState) => ({
       ...prevState,
-      loading: true,
+      isLoadingUser: true,
     }))
 
     const { data } = await api.get(`users/${username}`)
@@ -41,7 +43,7 @@ function GithubProvider({ children }) {
     setGithubData((prevState) => ({
       ...prevState,
       hasUser: true,
-      loading: false,
+      isLoadingUser: false,
       user: {
         id: data.id,
         avatar: data.avatar_url,
@@ -60,20 +62,32 @@ function GithubProvider({ children }) {
   }
 
   async function getUserRepos(username) {
+    setGithubData((prevState) => ({
+      ...prevState,
+      isLoadingRepos: true,
+    }))
+
     const { data } = await api.get(`users/${username}/repos`)
 
     setGithubData((prevState) => ({
       ...prevState,
       repositories: data,
+      isLoadingRepos: false,
     }))
   }
 
   async function getUserStarred(username) {
+    setGithubData((prevState) => ({
+      ...prevState,
+      isLoadingStarred: true,
+    }))
+
     const { data } = await api.get(`users/${username}/starred`)
 
     setGithubData((prevState) => ({
       ...prevState,
       starred: data,
+      isLoadingStarred: false,
     }))
   }
 
