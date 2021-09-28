@@ -13,6 +13,27 @@ export const GlobalStyles = createGlobalStyle`
     background-color: #333;
     font: 400 16px 'Arial', sans-serif;
   }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+
+  a {
+    color: #4aaeff;
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
 `
 
 export const Container = styled.div`

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
+  margin-bottom: 40px;
   display: flex;
   align-items: center;
   gap: 24px;
@@ -25,12 +26,7 @@ export const UserInfo = styled.div`
     margin-bottom: 16px;
   }
 
-  h3 {
-    font-size: 18px;
-  }
-
   h4 {
-    font-size: 16px;
     margin-bottom: 6px;
   }
 `
@@ -40,12 +36,6 @@ export const UserGeneric = styled.div`
   align-items: center;
   margin-top: 8px;
   gap: 8px;
-
-  a {
-    font-size: 18px;
-    color: lightblue;
-    font-weight: bold;
-  }
 `
 
 export const StatusCount = styled.div`

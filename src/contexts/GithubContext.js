@@ -62,8 +62,6 @@ function GithubProvider({ children }) {
   async function getUserRepos(username) {
     const { data } = await api.get(`users/${username}/repos`)
 
-    console.log('res: ' + JSON.stringify(data))
-
     setGithubData((prevState) => ({
       ...prevState,
       repositories: data,
@@ -72,8 +70,6 @@ function GithubProvider({ children }) {
 
   async function getUserStarred(username) {
     const { data } = await api.get(`users/${username}/starred`)
-
-    console.log('res: ' + JSON.stringify(data))
 
     setGithubData((prevState) => ({
       ...prevState,
