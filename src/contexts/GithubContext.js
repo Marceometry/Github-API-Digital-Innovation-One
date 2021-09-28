@@ -11,6 +11,7 @@ export const GithubContext = createContext({
 function GithubProvider({ children }) {
   const [githubData, setGithubData] = useState({
     hasUser: false,
+    hasError: false,
     isLoadingUser: false,
     isLoadingRepos: false,
     isLoadingStarred: false,
@@ -32,67 +33,102 @@ function GithubProvider({ children }) {
     starred: [],
   })
 
-  async function getUser(username) {
+  async function getAllInfo(username) {
     setGithubData((prevState) => ({
       ...prevState,
       isLoadingUser: true,
-    }))
-
-    const { data } = await api.get(`users/${username}`)
-
-    setGithubData((prevState) => ({
-      ...prevState,
-      hasUser: true,
-      isLoadingUser: false,
-      user: {
-        id: data.id,
-        avatar: data.avatar_url,
-        login: data.login,
-        name: data.name,
-        html_url: data.html_url,
-        blog: data.blog,
-        company: data.company,
-        location: data.location,
-        followers: data.followers,
-        following: data.following,
-        public_gists: data.public_gists,
-        public_repos: data.public_repos,
-      },
-    }))
-  }
-
-  async function getUserRepos(username) {
-    setGithubData((prevState) => ({
-      ...prevState,
       isLoadingRepos: true,
-    }))
-
-    const { data } = await api.get(`users/${username}/repos`)
-
-    setGithubData((prevState) => ({
-      ...prevState,
-      repositories: data,
-      isLoadingRepos: false,
-    }))
-  }
-
-  async function getUserStarred(username) {
-    setGithubData((prevState) => ({
-      ...prevState,
       isLoadingStarred: true,
     }))
 
-    const { data } = await api.get(`users/${username}/starred`)
+    const hasUser = await getUser(username)
 
-    setGithubData((prevState) => ({
-      ...prevState,
-      starred: data,
-      isLoadingStarred: false,
-    }))
+    if (!hasUser) return
+    getUserRepos(username)
+    getUserStarred(username)
+  }
+
+  async function getUser(username) {
+    try {
+      const { data } = await api.get(`users/${username}`)
+      setGithubData((prevState) => ({
+        ...prevState,
+        hasUser: true,
+        hasError: false,
+        isLoadingUser: false,
+        user: {
+          id: data.id,
+          avatar: data.avatar_url,
+          login: data.login,
+          name: data.name,
+          html_url: data.html_url,
+          blog: data.blog,
+          company: data.company,
+          location: data.location,
+          followers: data.followers,
+          following: data.following,
+          public_gists: data.public_gists,
+          public_repos: data.public_repos,
+        },
+      }))
+      return true
+    } catch (err) {
+      console.error(err)
+      setGithubData((prevState) => ({
+        ...prevState,
+        hasUser: false,
+        hasError: true,
+        isLoadingUser: false,
+      }))
+      return false
+    }
+  }
+
+  async function getUserRepos(username) {
+    try {
+      const { data } = await api.get(`users/${username}/repos`)
+
+      setGithubData((prevState) => ({
+        ...prevState,
+        hasError: false,
+        repositories: data,
+        isLoadingRepos: false,
+      }))
+    } catch (err) {
+      console.error(err)
+
+      setGithubData((prevState) => ({
+        ...prevState,
+        hasError: true,
+        isLoadingRepos: false,
+      }))
+    }
+  }
+
+  async function getUserStarred(username) {
+    try {
+      const { data } = await api.get(`users/${username}/starred`)
+
+      setGithubData((prevState) => ({
+        ...prevState,
+        hasError: false,
+        starred: data,
+        isLoadingStarred: false,
+      }))
+    } catch (err) {
+      console.error(err)
+
+      setGithubData((prevState) => ({
+        ...prevState,
+        hasError: true,
+        isLoadingStarred: false,
+      }))
+    }
   }
 
   const contextValue = {
     data: githubData,
+    getAllInfo: useCallback((username) => getAllInfo(username), []),
     getUser: useCallback((username) => getUser(username), []),
     getUserRepos: useCallback((username) => getUserRepos(username), []),
     getUserStarred: useCallback((username) => getUserStarred(username), []),

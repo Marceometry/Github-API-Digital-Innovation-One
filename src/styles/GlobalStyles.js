@@ -8,7 +8,6 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    height: 100vh;
     color: #eee;
     background-color: #333;
     font: 400 16px 'Arial', sans-serif;
@@ -37,5 +36,6 @@ export const GlobalStyles = createGlobalStyle`
 `
 
 export const Container = styled.div`
-  padding: 24px;
+  height: 100vh;
+  padding: 32px;
 `

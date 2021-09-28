@@ -1,14 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useGithub } from '../../hooks/github'
+import { Loader } from '../'
 import * as S from './styles'
 
 export function Profile() {
+  const [imageLoaded, setImageLoaded] = useState(false)
   const { data } = useGithub()
   const { user } = data
 
   return (
     <S.Wrapper>
-      <S.Avatar src={user.avatar} alt='User Avatar' />
+      <S.Avatar
+        src={user.avatar}
+        alt='User Avatar'
+        onLoad={() => setImageLoaded(true)}
+        onError={() => setImageLoaded(true)}
+        display={imageLoaded ? 'initial' : 'none'}
+      />
+      {!imageLoaded && (
+        <Loader width='220px' height='220px' borderRadius='24px' />
+      )}
+
       <S.UserInfo>
         <div>
           <h1>{user.name}</h1>
@@ -43,20 +55,20 @@ export function Profile() {
 
         <S.StatusCount>
           <div>
-            <h4>Seguidores</h4>
             <span>{user.followers}</span>
+            <h4>Seguidores</h4>
           </div>
           <div>
-            <h4>Seguindo</h4>
             <span>{user.following}</span>
+            <h4>Seguindo</h4>
           </div>
           <div>
-            <h4>Gists</h4>
             <span>{user.public_gists}</span>
+            <h4>Gists</h4>
           </div>
           <div>
-            <h4>Repos</h4>
             <span>{user.public_repos}</span>
+            <h4>Repos</h4>
           </div>
         </S.StatusCount>
       </S.UserInfo>

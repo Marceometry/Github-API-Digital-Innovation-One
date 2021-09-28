@@ -3,11 +3,12 @@ import { GithubContext } from '../contexts/GithubContext'
 
 export const useGithub = () => {
   const {
-    getUser,
     data,
+    getAllInfo,
+    getUser,
     getUserRepos,
     getUserStarred
   } = useContext(GithubContext)
 
-  return { getUser, data, getUserRepos, getUserStarred }
+  return { data, getAllInfo, getUser, getUserRepos, getUserStarred }
 }

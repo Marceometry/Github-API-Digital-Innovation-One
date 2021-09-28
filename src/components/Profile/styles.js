@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   margin-bottom: 40px;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
 `
 
 export const Avatar = styled.img`
@@ -12,6 +12,7 @@ export const Avatar = styled.img`
   height: 220px;
   border: 1px solid #eee;
   border-radius: 24px;
+  display: ${({ display }) => display};
 `
 
 export const UserInfo = styled.div`
@@ -27,7 +28,7 @@ export const UserInfo = styled.div`
   }
 
   h4 {
-    margin-bottom: 6px;
+    margin-top: 6px;
   }
 `
 
@@ -44,6 +45,8 @@ export const StatusCount = styled.div`
   gap: 16px;
 
   div {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 `

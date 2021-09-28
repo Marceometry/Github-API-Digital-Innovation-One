@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useGithub } from '../../hooks/github'
-import { Card } from '../'
+import { Button, Card, Message } from '../'
 import * as S from './styles'
 
 export function Repositories() {
@@ -20,30 +20,34 @@ export function Repositories() {
   return (
     <S.Wrapper>
       <S.Tabs>
-        <S.Button
+        <Button
           active={currentTab === 'repositories'}
           onClick={() => changeTab('repositories')}
         >
           Repositórios
-        </S.Button>
-        <S.Button
+        </Button>
+        <Button
           active={currentTab === 'starred'}
           onClick={() => changeTab('starred')}
         >
           Com estrela
-        </S.Button>
+        </Button>
       </S.Tabs>
-      <S.Grid>
-        {repositories.map((item) => (
-          <Card
-            key={item.id}
-            name={item.name}
-            link={item.html_url}
-            fullName={item.full_name}
-            description={item.description}
-          />
-        ))}
-      </S.Grid>
+      {repositories.length > 0 ? (
+        <S.Grid>
+          {repositories.map((item) => (
+            <Card
+              key={item.id}
+              name={item.name}
+              link={item.html_url}
+              fullName={item.full_name}
+              description={item.description}
+            />
+          ))}
+        </S.Grid>
+      ) : (
+        <Message>Não há nada aqui</Message>
+      )}
     </S.Wrapper>
   )
 }
