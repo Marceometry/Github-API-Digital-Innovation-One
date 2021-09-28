@@ -8,14 +8,14 @@ export const Wrapper = styled.div`
 `
 
 export const Avatar = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   border: 1px solid #eee;
-  border-radius: 50%;
+  border-radius: 24px;
 `
 
 export const UserInfo = styled.div`
-  height: 200px;
+  height: 220px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
