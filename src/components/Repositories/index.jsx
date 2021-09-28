@@ -40,7 +40,8 @@ export function Repositories() {
               key={item.id}
               name={item.name}
               link={item.html_url}
-              fullName={item.full_name}
+              language={item.language}
+              homepage={item.homepage}
               description={item.description}
             />
           ))}

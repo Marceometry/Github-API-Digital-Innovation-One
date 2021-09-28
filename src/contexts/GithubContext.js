@@ -86,7 +86,7 @@ function GithubProvider({ children }) {
 
   async function getUserRepos(username) {
     try {
-      const { data } = await api.get(`users/${username}/repos`)
+      const { data } = await api.get(`users/${username}/repos?sort=updated`)
 
       setGithubData((prevState) => ({
         ...prevState,

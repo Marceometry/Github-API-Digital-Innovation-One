@@ -13,4 +13,15 @@ export const Wrapper = styled.div`
   p {
     margin: 20px 0 24px;
   }
+
+  span {
+    font-weight: bold;
+  }
+`
+
+export const Footer = styled.footer`
+  gap: 16px;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
 `

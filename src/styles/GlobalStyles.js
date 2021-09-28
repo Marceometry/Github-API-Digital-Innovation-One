@@ -38,4 +38,5 @@ export const GlobalStyles = createGlobalStyle`
 export const Container = styled.div`
   height: 100vh;
   padding: 32px;
+  overflow-y: scroll;
 `
