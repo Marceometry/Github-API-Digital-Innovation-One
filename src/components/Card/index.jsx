@@ -6,7 +6,7 @@ export const Card = ({ name, link, fullName, description }) => {
     <S.Wrapper>
       <div>
         <h3>{name}</h3>
-        <p>{description}</p>
+        <p>{description ? description : 'Sem descrição'}</p>
       </div>
       <a href={link} target='_blank' rel='noreferrer'>
         {fullName}

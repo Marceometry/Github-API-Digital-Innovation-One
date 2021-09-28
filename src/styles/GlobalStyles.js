@@ -28,19 +28,14 @@ export const GlobalStyles = createGlobalStyle`
 
   a {
     color: #4aaeff;
-    transition: filter 0.2s;
+    text-decoration: none;
 
     &:hover {
-      filter: brightness(0.9);
+      text-decoration: underline;
     }
   }
 `
 
 export const Container = styled.div`
   padding: 24px;
-
-  /* > header,
-  > div {
-    border: 1px solid #eee;
-  } */
 `
